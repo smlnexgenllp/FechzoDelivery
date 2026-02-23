@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaSpinner, FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { usePartnerAuth } from "../context/PartnerAuthContext";
-import api from "../api";
+import api from "../api/index.js";
 
 export default function PartnerLogin() {
   const navigate = useNavigate();
