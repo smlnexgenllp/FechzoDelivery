@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* iOS Specific Styles */
+@supports (-webkit-touch-callout: none) {
+  /* Fix for viewport height on iOS */
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+
+  /* Fix for iOS safe areas */
+  .ios-safe-area {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Bottom safe area only */
+  .ios-bottom-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Fix for iOS input zoom */
+  input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  select {
+    font-size: 16px !important;
+  }
+
+  /* Fix for iOS momentum scrolling */
+  .scroll-touch {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Fix for iOS rubber band effect */
+  .no-bounce {
+    overscroll-behavior-y: none;
+  }
+
+  /* Fix for iOS height issues in modals */
+  .modal-ios {
+    height: -webkit-fill-available;
+  }
+
+  /* Fix for iOS keyboard issues */
+  .keyboard-padding {
+    padding-bottom: 60px;
+  }
+}
+
+/* Add viewport height fix for mobile browsers */
+:root {
+  --vh: 1vh;
+}
+
+.h-screen-safe {
+  height: calc(var(--vh, 1vh) * 100);
+}
+/* index.css */
+.input {
+  @apply w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4;
+}
