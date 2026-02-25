@@ -95,7 +95,6 @@ export default function Onboarding() {
   const getValidationErrors = () => {
     const errors = [];
 
-    // Fields required by current or previous steps
     if (step >= 1) {
       if (!form.fullName.trim()) errors.push("Full name is required");
     }
@@ -131,7 +130,6 @@ export default function Onboarding() {
       if (!form.rcBookFront) errors.push("RC book front photo is required");
     }
 
-    // Optional fields format checks
     if (form.phone && !/^\d{10}$/.test(form.phone)) {
       errors.push("Enter valid 10-digit mobile number");
     }
@@ -193,43 +191,18 @@ export default function Onboarding() {
       if (form.drivingLicenseFront) formData.append("drivingLicenseFront", form.drivingLicenseFront);
       if (form.rcBookFront) formData.append("rcBookFront", form.rcBookFront);
 
-      const response = await api.post("/partner/onboarding", formData, 
-        // headers: {
-        //   Authorization: `Bearer ${localStorage.getItem("partnerToken")}`,
-        //   "Content-Type": "multipart/form-data",
-        // },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("partnerToken")}`,
-          },
-        }
-      );
-
-      if (!onboardingRes.data.success) {
-        throw new Error(onboardingRes.data.message || "Onboarding failed");
-      }
-
-      // Step 2: Link bank account with Razorpay
-      const bankRes = await api.post(
-        "/delivery-partner/bank/link",
-        {
-          accountHolderName: form.accountHolderName.trim(),
-          accountNumber: form.accountNumber.trim(),
-          ifsc: form.ifsc.toUpperCase(),
-          bankName: form.bankName.trim(),
+      const response = await api.post("/partner/onboarding", formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("partnerToken")}`,
+          // "Content-Type": "multipart/form-data" → usually not needed with FormData + axios
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("partnerToken")}`,
-          },
-        }
-      );
+      });
 
-      if (!bankRes.data.success) {
-        throw new Error(bankRes.data.message || "Bank account linking failed");
+      if (!response.data.success) {
+        throw new Error(response.data.message || "Onboarding failed");
       }
 
-      setSuccess("Onboarding and bank account linking completed successfully! Waiting for admin approval.");
+      setSuccess("Onboarding completed successfully! Waiting for admin approval.");
       
       // Auto-redirect after 2.5 seconds
       setTimeout(() => {
@@ -335,7 +308,7 @@ export default function Onboarding() {
                   name="vehicleNumber"
                   value={form.vehicleNumber.toUpperCase()}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition uppercase ${isInvalid(!form.vehicleNumber.trim())}`}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none uppercase transition ${isInvalid(!form.vehicleNumber.trim())}`}
                   placeholder="e.g. TN 29 AB 1234"
                 />
               </div>
