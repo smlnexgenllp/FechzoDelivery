@@ -37,11 +37,11 @@ function App() {
   }
 />
      <Route path='partner-orders' element={<PartnerOrders/>}/>
-     // Example: Partner dashboard routes
+ 
 <Route path="/partner/order-history/:orderId" element={<OrderHistoryDetail />} />
-      {/* Optional: redirect root to login */}
+ 
       <Route path="/" element={<PartnerLogin />} />
-      {/* 404 fallback */}
+
       <Route path="*" element={
         <div className="min-h-screen flex items-center justify-center text-2xl font-bold text-red-600">
           404 - Page Not Found
