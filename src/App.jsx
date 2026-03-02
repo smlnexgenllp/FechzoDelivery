@@ -10,6 +10,7 @@ import "./index.css";
 import PartnerOrders from "./components/Partner/PartnerOrders";
 import PartnerProfile from "./components/Partner/PartnerProfile";
 import PartnerDocuments from "./components/Partner/PartnerDocuments";
+import OrderHistoryDetail from "./components/Partner/OrderHistoryDetail";
 function App() {
   return (
     <Routes>
@@ -36,6 +37,8 @@ function App() {
   }
 />
      <Route path='partner-orders' element={<PartnerOrders/>}/>
+     // Example: Partner dashboard routes
+<Route path="/partner/order-history/:orderId" element={<OrderHistoryDetail />} />
       {/* Optional: redirect root to login */}
       <Route path="/" element={<PartnerLogin />} />
       {/* 404 fallback */}
