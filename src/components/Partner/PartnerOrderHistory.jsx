@@ -3,11 +3,12 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Star } from "lucide-react";
 import API_BASE_URL from "../../config/api";
+import { useNavigate } from "react-router-dom";
 export default function PartnerOrderHistory() {
   const [historyOrders, setHistoryOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   const token = localStorage.getItem("partnerToken");
 
   const fetchHistoryOrders = useCallback(async () => {
@@ -227,14 +228,14 @@ export default function PartnerOrderHistory() {
                 )}
 
                 {/* View Details */}
-                <div className="flex justify-end mt-4">
-                  <button
-                    onClick={() => alert("Order details coming soon...")}
-                    className="text-red-600 hover:text-red-700 font-medium text-sm"
-                  >
-                    View Details →
-                  </button>
-                </div>
+<div className="flex justify-end mt-4">
+  <button
+    onClick={() => navigate(`/partner/order-history/${order._id}`)}  // ← use _id or orderId depending on your backend
+    className="text-red-600 hover:text-red-700 font-medium text-sm flex items-center gap-1 transition"
+  >
+    View Details <span aria-hidden="true">→</span>
+  </button>
+</div>
               </div>
             </div>
           ))}
