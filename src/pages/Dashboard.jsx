@@ -7,7 +7,7 @@ import PartnerOrders from "../components/Partner/PartnerOrders";
 import ActiveOrders from "../components/Partner/ActiveOrders";
 import PartnerOrderHistory from "../components/Partner/PartnerOrderHistory";
 import EarningsPage from "../components/Partner/EarningsPage";
-
+import API_BASE_URL from "../config/api";
 import {
   IndianRupee,
   Package,
